@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\CheckoutController;
 
 
 /*
@@ -26,7 +26,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth', 'isAdmin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
+
+     Route::get('checkout', [CheckoutController::class, 'index']);
+ });
+
+ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/dashboard', 'Admin\FrontendController@index');
 
     Route::get('categories','Admin\CategoryController@index');
