@@ -30,7 +30,7 @@
         <h1 class="list-group-item-heading">{{$forum->Forumo_temos}}</h1>
         <hr>
     <div class="thread-details">
-        <a class="list-group-item-heading">{!! \Michelf\Markdown::defaultTransform($forum->turinys) !!}</a>
+        <p class="list-group-item-heading">{!! \Michelf\Markdown::defaultTransform($forum->turinys) !!}</p>
     </div>
     <br>
     @if(auth()->user() != null)
