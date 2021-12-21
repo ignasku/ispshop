@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ForumasController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
@@ -24,7 +27,17 @@ use App\Http\Controllers\Admin\ProductController;
   //  return view('welcome');
 //});
 
+Route::resource('/forum', 'ForumasController');
 Route::get('/', [FrontendController::class, 'index']);
+// Route::resource('/forum',ForumasController::class);
+// Route::resource('/forum',ForumasController::class);
+
+// Route::get('/forum', [ForumasController::class, 'index']);
+Route::get('/forum/create', [ForumasController::class, 'create']);
+Route::resource('comment','CommentController',['only'=>['update','destroy']]);
+Route::post('comment/create/{forum}',[CommentController::class,'addThreadComment'])->name('threadcomment.store');
+Route::post('comment/like',[LikeController::class,'toggleLike'])->name('toggleLike');
+Route::post('reply/create/{comment}',[CommentController::class,'addReplyComment'])->name('replycomment.store');
 
 Auth::routes();
 
