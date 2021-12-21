@@ -31,7 +31,7 @@ class CategoryController extends Controller
         $category->meta_keywords = $request->input('meta_keywords');
         $category->meta_descrip = $request->input('meta_description');
         $category->save();
-        return redirect('/dashboard')->with('status',"Category added");
+        return redirect('/categories')->with('status',"Category added");
     }
 
     public function edit($id)
@@ -52,14 +52,21 @@ class CategoryController extends Controller
         $category->meta_keywords = $request->input('meta_keywords');
         $category->meta_descrip = $request->input('meta_description');
         $category->update();
-        return redirect('dashboard')->with('status',"Category updated successfully");
+        return redirect('/categories')->with('status',"Category updated successfully");
     }
 
     public function destroy($id)
     {
-        $category = Category::find($id);
+
+        $category =Category::where('id',$id)->first();
+
+        if ($category != null) {
+            $category->delete();
+        return redirect('/categories')->with(['status'=> 'Category deleted successfully']);
+        }
+
+    return redirect('/categories')->with(['status'=> 'Wrong ID']);
+
      
-        $category->delete();
-        return redirect('categories')->with('status',"Category deleted successfully");
     }
 }
