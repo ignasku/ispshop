@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
 
+use App\Http\Controllers\Admin\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -53,4 +55,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('edit-prod/{id}',[CategoryController::class,'edit']);
     Route::put('update-category/{id}',[CategoryController::class,'update']);
     Route::get('delete-category/{id}',[CategoryController::class,'destroy']);
+
+    Route::get('products', [ProductController::class, 'index']);
+    Route::get('add-products', [ProductController::class, 'add']);
+    Route::post('insert-product', [ProductController::class, 'insert']);
  }); 
