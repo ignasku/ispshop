@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ForumasController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\LikeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\CartController;
+
+use App\Http\Controllers\Admin\ProductController;
 
 
 /*
@@ -23,25 +23,19 @@ use App\Http\Controllers\Frontend\FrontendController;
 //Route::get('/', function () {
   //  return view('welcome');
 //});
-Route::resource('/forum', 'ForumasController');
-Route::get('/', [FrontendController::class, 'index']);
-// Route::resource('/forum',ForumasController::class);
-// Route::resource('/forum',ForumasController::class);
 
-// Route::get('/forum', [ForumasController::class, 'index']);
-Route::get('/forum/create', [ForumasController::class, 'create']);
-Route::resource('comment','CommentController',['only'=>['update','destroy']]);
-Route::post('comment/create/{forum}',[CommentController::class,'addThreadComment'])->name('threadcomment.store');
-Route::post('comment/like',[LikeController::class,'toggleLike'])->name('toggleLike');
-Route::post('reply/create/{comment}',[CommentController::class,'addReplyComment'])->name('replycomment.store');
+Route::get('/', [FrontendController::class, 'index']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::post('add-to-cart', [CartController::class, 'addProduct']);
 
 Route::middleware(['auth'])->group(function () {
   
-    Route::get('checkout', [CheckoutController::class, 'index']);
+   Route::get('cart', [CartController::class, 'viewcart']);
+   Route::get('checkout', [CheckoutController::class, 'index']);
  });
 
  Route::middleware(['auth', 'isAdmin'])->group(function () {
@@ -53,4 +47,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('edit-prod/{id}',[CategoryController::class,'edit']);
     Route::put('update-category/{id}',[CategoryController::class,'update']);
     Route::get('delete-category/{id}',[CategoryController::class,'destroy']);
+
+    Route::get('products', [ProductController::class, 'index']);
+    Route::get('add-products', [ProductController::class, 'add']);
+    Route::post('insert-product', [ProductController::class, 'insert']);
  }); 
