@@ -22,14 +22,6 @@ class CategoryController extends Controller
     public function insert(Request $request)
     {
         $category = new Category();
-        if($request->hasFile('image'))
-        {
-            $file = $request->file('image');
-            $ext = $file->getClientOriginalExtension();
-            $filename= time().'.'.$ext;
-            $file->move('assets/uploads/category'.$filename);
-            $category->image=$filename;
-        }
         $category->name =$request->input('name');
         $category->slug =$request->input('slug');
         $category->description =$request->input('description');
@@ -39,7 +31,7 @@ class CategoryController extends Controller
         $category->meta_keywords = $request->input('meta_keywords');
         $category->meta_descrip = $request->input('meta_description');
         $category->save();
-        return redirect('/dashboard')->with('status',"Kategorija prideta");
+        return redirect('/dashboard')->with('status',"Category added");
     }
 
     public function edit($id)
@@ -50,19 +42,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $category = Category::find($id);
-        if($request->hasFile('image'))
-        {
-            $path = 'assets/uploads/category/'.$category->image;
-            if(File::exists($path))
-            {
-                File::delete($path);
-            }
-            $file = $request->file('image');
-            $ext = $file->getClientOriginalExtension();
-            $filename= time().'.'.$ext;
-            $file->move('assets/uploads/category'.$filename);
-            $category->image=$filename;
-        }
+       
         $category->name =$request->input('name');
         $category->slug =$request->input('slug');
         $category->description =$request->input('description');
@@ -72,21 +52,14 @@ class CategoryController extends Controller
         $category->meta_keywords = $request->input('meta_keywords');
         $category->meta_descrip = $request->input('meta_description');
         $category->update();
-        return redirect('/dashboard')->with('status',"Kategorija atnaujinta");
+        return redirect('dashboard')->with('status',"Category updated successfully");
     }
 
     public function destroy($id)
     {
         $category = Category::find($id);
-        if($category->image)
-        {
-            $path='assets/uploads/category/'.$category->image;
-            if(File::exists($path))
-            {
-                File::delete($path);
-            }
-        }
+     
         $category->delete();
-        return redirect('categories')->with('status',"Kategorija panaikinta");
+        return redirect('categories')->with('status',"Category deleted successfully");
     }
 }

@@ -12,7 +12,6 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Image</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -22,9 +21,6 @@
                         <td> {{$item ->id}}</td>
                         <td> {{$item ->name}}</td>
                         <td> {{$item ->description}}</td>
-                        <td> 
-                            <img src="{{asset('assets/uploads/category/'.$item ->image)}}" alt="Image here">
-                        </td>
                         <td>
                             <a href="{{url('edit-prod/'.$item->id)}}" class="btn btn-primary"> Edit</a>
                             <a href="{{url('delete-category/'.$item)}}" class="btn btn-danger"> Delete</a>

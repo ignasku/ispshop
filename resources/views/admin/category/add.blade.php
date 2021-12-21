@@ -42,9 +42,6 @@
                         <input type="text" class="form-control" name="meta_description">
                     </div>
                     <div class="col-md-12">
-                        <input type="file" class="form-control" name="image">
-                    </div>
-                    <div class="col-md-12">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
 

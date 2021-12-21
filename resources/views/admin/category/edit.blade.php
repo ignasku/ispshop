@@ -42,12 +42,6 @@
                         <label for="">Meta Description</label>
                         <textarea type="text" class="form-control"  name="meta_description">{{$category->meta_descrip}}</textarea>
                     </div>
-                    @if($category->image)
-                    <img src="{{asset('assets/uploads/category/'.$category->image)}}" alt="Category image">
-                    <div class="col-md-12">
-                        <input type="file" class="form-control" name="image">
-                    </div>
-                    @endif
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
