@@ -24,10 +24,11 @@ Route::get('/', [FrontendController::class, 'index']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('add-to-cart', [CartController::class, 'addProduct']);
 
 Route::middleware(['auth'])->group(function () {
-
-     Route::get('checkout', [CheckoutController::class, 'index']);
+  
+    Route::get('checkout', [CheckoutController::class, 'index']);
  });
 
  Route::middleware(['auth', 'isAdmin'])->group(function () {
