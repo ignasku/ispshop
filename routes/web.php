@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\FrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,11 @@ use App\Http\Controllers\Frontend\CheckoutController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+  //  return view('welcome');
+//});
+
+Route::get('/', [FrontendController::class, 'index']);
 
 Auth::routes();
 
@@ -28,7 +31,11 @@ Route::middleware(['auth'])->group(function () {
  });
 
  Route::middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.index');
-     });
- });
+    Route::get('/dashboard', 'Admin\FrontendController@index');
+
+    Route::get('categories','Admin\CategoryController@index');
+    Route::get('add-category','Admin\CategoryController@add');
+    Route::post('insert-category','Admin\CategoryController@insert');
+
+
+ }); 
