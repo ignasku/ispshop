@@ -31,7 +31,7 @@
 <body>
 
     @include('layouts.inc.frontnavbar')
-    <div class="content">
+    <div class="content" style="padding: 20px">
         @yield('content')
     </div>
 
